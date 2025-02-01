@@ -1,0 +1,305 @@
+---
+import { getCollection } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import ArrowCard from "@components/ArrowCard"
+import StackCard from "@components/StackCard.astro"
+import { SITE, SOCIALS } from "@consts"
+import TwinklingStars from "@components/TwinklingStars.astro"
+import MeteorShower from "@components/MeteorShower.astro"
+
+const posts = (await getCollection("blog"))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const projects = (await getCollection("projects"))
+  .filter(project => !project.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const stackControl = [
+  { 
+    text: "PHP", 
+    icon: "php", 
+    href: "https://www.php.net" 
+  },
+  { 
+    text: "Javascript", 
+    icon: "javascript", 
+    href: "https://www.javascript.com" 
+  },
+  { 
+    text: "MySQL", 
+    icon: "mysql", 
+    href: "https://www.typescriptlang.org" 
+  },
+  { 
+    text: "HTML5", 
+    icon: "html", 
+    href: "https://www.typescriptlang.org" 
+  },
+  { 
+    text: "CSS3", 
+    icon: "css", 
+    href: "https://tailwindcss.com" 
+  },
+]
+
+const stackTouching = [
+  { 
+    text: "Astro", 
+    icon: "astro", 
+    href: "https://astro.build" 
+  },
+  { 
+    text: "Typescript", 
+    icon: "typescript", 
+    href: "https://www.typescriptlang.org" 
+  },
+  { 
+    text: "Tailwind", 
+    icon: "tailwind", 
+    href: "https://tailwindcss.com" 
+  },
+  { 
+    text: "Vue", 
+    icon: "vue", 
+    href: "https://tailwindcss.com" 
+  },
+  { 
+    text: "Angular", 
+    icon: "angular", 
+    href: "https://tailwindcss.com" 
+  }
+]
+
+const stack = [
+  { 
+    text: "Astro", 
+    icon: "astro", 
+    href: "https://astro.build" 
+  },
+  { 
+    text: "Javascript", 
+    icon: "javascript", 
+    href: "https://www.javascript.com" 
+  },
+  { 
+    text: "Typescript", 
+    icon: "typescript", 
+    href: "https://www.typescriptlang.org" 
+  },
+  { 
+    text: "Tailwind", 
+    icon: "tailwind", 
+    href: "https://tailwindcss.com" 
+  },
+]
+
+const profileImage = "/profile.jpg"; // Cambia por la ruta de tu imagen
+
+---
+
+<PageLayout title="Home" description={SITE.DESCRIPTION}>
+
+  <!-- Light Mode: Particles -->
+  <div class='absolute inset-0 block dark:hidden'>
+    <div id='particles1' class='fixed inset-0'></div>
+    <div id='particles2' class='fixed inset-0'></div>
+    <div id='particles3' class='fixed inset-0'></div>
+  </div>
+
+  <!-- Dark Theme: Stars -->
+  <div class='absolute inset-0 bg-black hidden dark:block'>
+    <div id='stars1' class='fixed inset-0'></div>
+    <div id='stars2' class='fixed inset-0'></div>
+    <div id='stars3' class='fixed inset-0'></div>
+  </div>
+
+  <!-- Dark Theme: Twinkling Stars / Metors -->
+  <div id="galaxy" class="fixed inset-0">
+    <div class="hidden dark:block">
+      <TwinklingStars/>
+      <MeteorShower/>
+    </div>
+  </div>
+
+  <script is:inline src="/js/bg.js"></script>
+  
+  <!-- HERO -->
+  <section class="relative h-screen w-full">
+    <div id="planetcont" class='animate absolute inset-0 top-1/4 overflow-hidden'>
+      <div id="crescent" class='absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%'>
+        <div id="planet" class='w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center'>
+          <div id="blur" class='w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl'/>
+        </div>
+      </div>
+    </div>
+    <div class="animate absolute h-full w-full flex items-center justify-center">
+      <div class='relative w-full h-full flex flex-col items-center justify-center'>
+        <!-- Imagen centrada sobre el texto -->
+        <div class="w-40 h-40 mt-20 bg-white shadow-lg rounded-full overflow-hidden transform transition-transform hover:scale-105">
+          <img src="/profile.jpg" alt="Profile" class="w-full h-full object-cover">
+        </div>
+    
+        <!-- Bloque del Hero -->
+        <div class='p-5 text-center mt-10'>    
+          <p class='animated text-lg md:text-xl lg:text-2xl font-semibold opacity-75'>
+            Hola! 👋, estas en el portfolio de ...
+          </p>
+          <p class='animated tracking-widest mt-5 text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white'>
+            Javier Mazarío
+          </p>
+          <p class='animated mt-5 text-sm md:text-base lg:text-lg opacity-75'>
+            Actualmente trabajando para Embention como FullStack Web Developer
+          </p>
+          <!--div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
+            <a href='/blog' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
+              Read my blog
+            </a>
+            <a href='/work' class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
+              View my work
+            </a>
+          </div-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="relative bg-white dark:bg-black">
+    <div class="mx-auto max-w-screen-md p-5 space-y-24 pb-16">
+
+      <!-- About Section -->
+      <section id="textBlock" class="opacity-0 translate-y-10 transition-all duration-1000 ease-in-out p-10 max-w-3xl mx-auto shadow-lg rounded-lg">
+        <article>
+          <p>Soy <b><i>desarrollador web full stack</i></b>, <b><i>técnico SEO</i></b>, <b><i>con experiencia administrando sistemas UNIX</i></b>, <b><i>mentor</i></b>, <b><i>estudiante</i></b>, <b><i>gamer desde que nací</i></b>, <b><i>un viciado al padel</i></b> y <b><i>padre perruno de Ekko</i></b>.</p>
+          <p>Me encanta toquetear, romper y construir cosas relacionadas con la técnologia. Desde bien pequeño trasteaba con ordenadores (sobre todo el de mi padre, jeje), ahora con 33 años lo sigo haciendo pero de otra forma.</p>
+          <p>Durante mi trayectoria</p>
+          <p>He podido trabajar en varios sitios donde he crecido como profesional y he adquirido distintos conocimientos relacionados con el desarrollo web tanto a nivel de frontend como de backend, optimización SEO, eCommerce... trabajando con tecnologias como
+            PHP, Javascript, HTML, CSS, MySQL, Docker, Git. He trabajado en proyectos utilizando frameworks como Symfony o Vue.js, he desarrollado sitios web con Wordpress en los que he creado temas y plugins desde 0 para personalizar vistas o funcionalidades y
+            he creado eCommerces ayudandome de servicios como Prestashop, Shopify o Woocommerce. He trabajado en equipo junto a otros profesionales como diseñadores UX/UI, técnicos de marketing online y administradores de sistemas por lo que he podido adquirir 
+            conocimientos en estas áreas que estan relacionados con el desarrollo web.
+          </p>
+          <p>Actualmente</p>
+          <p>Formo parte del equipo de <a href="https://www.embention.com/" target="_blank">Embention</a> donde trabajo como <b><i>desarrollador web full stack y técnico SEO.</i></b></p>
+        </article>
+      </section>
+
+      <!-- Tech Stack Section -->
+      <section class="animate">
+        <div class="space-y-4">
+          <p class="font-semibold text-center text-black dark:text-white">
+            Las técnologias que controlo
+          </p>
+          <div class="flex flex-wrap justify-center items-center gap-2 mt-5">
+            {stackControl.map(item => (
+              <StackCard 
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+              />
+            ))}
+          </div>
+        </div>
+        <div class="space-y-4 mt-10">
+          <p class="font-semibold text-center text-black dark:text-white">
+            Las técnologias que estoy toqueteando
+          </p>
+          <div class="flex flex-wrap justify-center items-center gap-2 mt-5">
+            {stackTouching.map(item => (
+              <StackCard 
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
+        <a href='/estudios' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
+          Mis estudios
+        </a>
+        <a href='/experiencia' class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
+          Donde he trabajado
+        </a>
+      </div>
+
+      <!-- Tech Stack Section -->
+      <section class="animate">
+        <div class="space-y-4">
+          <p class="font-semibold text-center text-black dark:text-white">
+            Web creada con
+          </p>
+          <div class="flex flex-wrap justify-center items-center gap-2 mt-5">
+            {stack.map(item => (
+              <StackCard 
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+              />
+            ))}
+          </div>
+          <div class="text-center">
+            Realización de reactividad y statefulness, con
+            <a href="https://www.solidjs.com/" target="_blank" class="w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                SolidJS
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="animate flex flex-col items-center justify-center text-center ">
+        <div>
+          <p class="font-semibold text-black dark:text-white">
+            Let's Connect
+          </p>
+          <p>
+            Reach out to me via email or on social media.
+          </p>
+          <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
+            {SOCIALS.map(social => (
+              <div class="col-span-1 flex items-center gap-1">
+                <span class="whitespace-nowrap truncate">
+                  {social.NAME}
+                </span>
+              </div>
+              <div class="col-span-3 truncate">
+                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                    {social.TEXT}
+                  </span>
+                </a>
+              </div>
+            ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</PageLayout>
+
+<!-- Script para manejar el efecto de scroll -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const textBlock = document.getElementById("textBlock");
+
+    function revealOnScroll() {
+      if (!textBlock) return;
+
+      const rect = textBlock.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (rect.top < windowHeight * 0.8) {
+        textBlock.classList.add("opacity-100", "translate-y-0");
+        textBlock.classList.remove("opacity-0", "translate-y-10");
+      }
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll(); // Llamada inicial por si ya está en vista
+  });
+</script>
